@@ -68,4 +68,19 @@ try:
 except Exception as e:
     print(f"An error occurred during visualization: {e}")
 
+print("\n--- Practice Exercises ---")
+
+# Exercise 1: Extract the 'zipcode' from the 'address' column
+print("\nExercise 1: User Zipcodes")
+df['user_zip'] = df['address'].apply(lambda user_zipcode: user_zipcode.get('zipcode'))
+print(df[['name','user_zip']].head(10))
+
+# Exercise 2: Create a new DataFrame with only users from "South Christy"
+print("\nExercise 2: Users from South Christy")
+
+
+# Exercise 3: Create a new column to classify website type based on its ending
+print("\nExercise 3: Website Type Classification")
+
+
 print("\n--- Analysis script finished ---")
