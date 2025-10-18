@@ -41,5 +41,31 @@ df['company_name'] = df['company'].apply(lambda company_dict: company_dict['name
 # Display the names and their company names
 print(df[['name', 'company_name']].head(10))
 
+# --- 4. Visualize the Data ---
+import matplotlib.pyplot as plt
+
+print("\n--- Creating Visualization ---")
+
+try:
+    # The 'address' column is a dictionary, so we extract the 'city' from it
+    city_counts = df['address'].apply(lambda addr: addr.get('city')).value_counts()
+
+    # Create a bar chart
+    plt.figure(figsize=(10, 6)) # Set the figure size
+    city_counts.plot(kind='bar')
+    plt.title('Number of Users by City')
+    plt.ylabel('Number of Users')
+    plt.xlabel('City')
+    plt.xticks(rotation=45, ha='right') # Rotate city names for better readability
+    plt.tight_layout() # Adjust layout to make room for labels
+
+    # Save the chart to a file
+    output_viz_file = "user_city_distribution.png"
+    plt.savefig(output_viz_file)
+    
+    print(f"Chart successfully saved to {output_viz_file}")
+
+except Exception as e:
+    print(f"An error occurred during visualization: {e}")
 
 print("\n--- Analysis script finished ---")
