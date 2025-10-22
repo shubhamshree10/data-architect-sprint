@@ -78,4 +78,39 @@ print(filtered_df.head())
 
 print("\n--- Cleaning script finished ---")
 
-#Just getting today's commit Lol
+#Just getting today's commit Lol 
+
+# --- 3. Replicate Formula Calculations ---
+import numpy as np
+
+print("\n--- Replicating Excel Formulas ---")
+
+# 3a: Replicate a ratio (e.g., metric_C / metric_D)
+# We use np.where to avoid divide-by-zero errors, just like an IFERROR() in Excel.
+filtered_df['c_d_ratio'] = np.where(
+    filtered_df['metric_D'] == 0,  # The condition (IF metric_D is 0)
+    0,                             # The value if True (then 0)
+    filtered_df['metric_C'] / filtered_df['metric_D'] # The value if False (then do the division)
+)
+
+# 3b: Replicate a date-tracking formula (e.g., days since start of experiment)
+# Find the earliest date in our dataset
+min_date = filtered_df['date'].min()
+# Calculate the number of days from the start for each row
+filtered_df['days_from_start'] = (filtered_df['date'] - min_date).dt.days
+
+print("Formulas successfully replicated in new columns.")
+
+# --- Display a summary of the final DataFrame ---
+print("\n--- Final DataFrame Info ---")
+filtered_df.info()
+
+print("\n--- Final DataFrame Head (with new columns) ---")
+print(filtered_df.head())
+
+# --- Save the final output to a new Excel file ---
+output_filename = "final_processed_ab_data.xlsx"
+filtered_df.to_excel(output_filename, index=False)
+print(f"\nSuccessfully saved final processed data to {output_filename}")
+
+print("\n--- Processing script finished ---")
