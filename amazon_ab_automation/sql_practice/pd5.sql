@@ -183,6 +183,6 @@ JOIN marketing_data md ON br.region = md.region
 
 GROUP BY 1, 2, 3
 ORDER BY 1, 2;
-```
+``` 
 
 -----
